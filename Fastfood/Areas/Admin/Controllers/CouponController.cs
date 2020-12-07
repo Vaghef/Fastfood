@@ -61,7 +61,7 @@ namespace Fastfood.Areas.Admin.Controllers
             if (id == null)
                 return NotFound();
 
-            var coupon = _db.Coupons.FindAsync(id); ;
+            var coupon = await _db.Coupons.FindAsync(id); ;
 
             if (coupon == null)
                 return NotFound();
