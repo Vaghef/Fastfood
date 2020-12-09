@@ -1,5 +1,37 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@model IndexViewModel
+
+<br/><br />
+
+@if(Model.Coupons.ToList().Count > 0)
+{
+    <div class="border">
+        <div class="carousel" data-ride="carousel" data-interval="2000">
+            @for(int i = 0; i<Model.Coupons.Count(); i++)
+            {
+                if(i == 0)
+                {
+                    <div class="carousel-item active">
+                        @{ 
+                            var base64 = Convert.ToBase64String(Model.Coupons.ToList()[i].Picture);
+
+                            var imgSrc = string.Format("data:image/jpg;base64, {0}", base64);
+                        }
+                        <img src="@imgSrc" height="50px" class="d-block w-100" />
+                    </div>
+                }
+                else
+                {
+        <div class="carousel-item">
+            @{
+                var base64 = Convert.ToBase64String(Model.Coupons.ToList()[i].Picture);
+
+                var imgSrc = string.Format("data:image/jpg;base64, {0}", base64);
+            }
+            <img src="@imgSrc" height="50px" class="d-block w-100" />
+        </div>
+                }
+            }
+        </div>
+
+    </div>
 }

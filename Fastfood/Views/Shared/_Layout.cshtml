@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@using Fastfood.Utilities
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -23,20 +26,54 @@
                     <partial name="_LoginPartial" />
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-white" asp-area="" asp-page="/Index">صفحه اصلی</a>
+                            <a class="nav-link text-white" asp-area="Customer" asp-controller="Home" asp-action="Index">صفحه اصلی</a>
                         </li>
-                        <li class="nav-item dropdown text-white-50">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropDownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">پنل مدیریت</a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropDownMenuLink">
-                                <a class="dropdown-item" asp-area="Admin" asp-controller="Category" asp-action="Index">فهرست</a>
+                        @if (User.IsInRole(SD.ManagerUser))
+                        {
+                            <li class="nav-item dropdown text-white-50">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropDownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">پنل مدیریت</a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropDownMenuLink">
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Category" asp-action="Index">فهرست</a>
 
-                                <a class="dropdown-item" asp-area="Admin" asp-controller="SubCategory" asp-action="Index">زیرگروه</a>
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="SubCategory" asp-action="Index">زیرگروه</a>
 
-                                <a class="dropdown-item" asp-area="Admin" asp-controller="MenuItem" asp-action="Index" >منو</a>
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="MenuItem" asp-action="Index">منو</a>
 
-                                <a class="dropdown-item" asp-area="Admin" asp-controller="Coupon" asp-action="Index" >کوپن</a>
-                            </div>
-                        </li>
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Coupon" asp-action="Index">کوپن</a>
+                                </div>
+                            </li>
+                        }
+                        @if (User.IsInRole(SD.CustomerEndUser) || User.IsInRole(SD.ManagerUser) || User.IsInRole(SD.FrontDeskUser) || User.IsInRole(SD.KitchenUser))
+
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="Customer" asp-controller="Order" asp-action="OrderHistory">
+                                    تاریخچه سفارشات
+                                </a>
+                            </li>
+                        }
+
+                        @if (HttpContextAccessor.HttpContext.Session.GetInt32(@SD.ssShopingCartCount) != null)
+                        {
+                            <li style="color:white">
+                                <a asp-area="Customer" asp-controller="Cart" asp-action="Index">
+                                    @{ 
+                                        var count = HttpContextAccessor.HttpContext.Session.GetInt32(@SD.ssShopingCartCount);
+                                    }
+                                    <i class="fas fa-shopping-cart">&nbsp; (@count)</i>
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li style="color:white">
+                                <a href="#">
+                                    <i class="fas fa-shopping-cart">&nbsp; (0)</i>
+                                </a>
+                            </li>
+                        }
+
+
                     </ul>
                 </div>
             </div>
@@ -50,12 +87,13 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            
+
         </div>
     </footer>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 
     @RenderSection("Scripts", required: false)

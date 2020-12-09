@@ -12,5 +12,19 @@ namespace Fastfood.Utilities
         public const string KitchenUser = "Kitchen";
         public const string FrontDeskUser = "FrontDesk";
         public const string CustomerEndUser = "Customer";
+
+        public const string ssShopingCartCount = "ssCartCount";
+        public const string ssCouponCode = "ssCouponCode";
+
+        public const string StatusSubmitted = "Submitted";
+        public const string StatusInProcess = "In Process";
+        public const string StatusReady = "StatusReady";
+        public const string StatusComplete = "Complete";
+        public const string StatusCanceled = "Canceled";
+
+
+        public const string PaymentStatusPending = "Pending";
+        public const string PaymentStatusApproved = "Approved";
+        public const string PaymentStatusRejected = "Rejected";
     }
 }

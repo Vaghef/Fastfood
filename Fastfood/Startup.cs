@@ -32,7 +32,7 @@ namespace Fastfood
                     Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<IdentityUser, IdentityRole>(options => {
-                options.SignIn.RequireConfirmedAccount = true;
+                options.SignIn.RequireConfirmedAccount = false;
                 options.Password.RequiredLength = 6;
                 options.Password.RequireUppercase = false;
                 options.Password.RequireDigit = false;
@@ -41,9 +41,11 @@ namespace Fastfood
                 })
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
+
+
             services.AddControllersWithViews();
             services.AddRazorPages().AddRazorRuntimeCompilation();
-
+            
             services.AddSession(options =>
             {
                 options.Cookie.IsEssential = true;
