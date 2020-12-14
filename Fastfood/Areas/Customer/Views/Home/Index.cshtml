@@ -40,3 +40,48 @@
 
 }
 
+<br />
+<br />
+<div class="backgroundWhite container">
+    <ul id="menu-filters" class="menu-filter-list list-inline text-center">
+        <li class="list-inline-item active btn btn-secondary ml-1 mr-1" data-filter=".menu-restaurant"> نمایش همه</li>
+
+        @foreach(var item in Model.Categories)
+        {
+            <li class="list-inline-item ml-1 mr-1" data-filter=".@item.Name.Replace(" ",string.Empty)">
+                @item.Name
+            </li>
+        }
+
+    </ul>
+
+    @foreach(var category in Model.Categories)
+    {
+        <div class="row" id="menu-wrapper">
+            <partial name="_ThumbnailArialPartial" model="@Model.MenuItems.Where(u => u.Category.Name.Equals(category.Name))" />
+        </div>
+    }
+</div>
+
+@section Scripts{ 
+
+    <script>
+        var posts = $('.post');
+
+        (function ($) {
+            $("#menu-filters li").click(function () {
+                $("#menu-filters li").removeClass('active btn btn-secondary');
+                $(this).addClass('active btn btn-secondary');
+
+                var selectedFilter = $(this).data("filter");
+
+                $(".menu-restaurant").fadeOut();
+
+                setTimeout(function () {
+                    $(selectedFilter).slideDown();
+                }, 100)
+            });
+        }
+        )(jQuery);
+    </script>
+}
