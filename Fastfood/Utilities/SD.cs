@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Fastfood.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -26,5 +27,27 @@ namespace Fastfood.Utilities
         public const string PaymentStatusPending = "Pending";
         public const string PaymentStatusApproved = "Approved";
         public const string PaymentStatusRejected = "Rejected";
+        public static double DiscountPrice(Coupon coupon, double OriginalOrderTotal)
+        {
+            if (coupon == null)
+                return OriginalOrderTotal;
+            else
+            {
+                if (coupon.MiniAmount > OriginalOrderTotal)
+                    return OriginalOrderTotal;
+                else
+                {
+                    if (Convert.ToInt32(coupon.Coupontype) == (int)Coupon.ECouponType.Money)
+                    {
+                        return Math.Round(OriginalOrderTotal - coupon.Discount, 2);
+                    }
+                    if (Convert.ToInt32(coupon.Coupontype) == (int)Coupon.ECouponType.Percent)
+                    {
+                        return Math.Round(OriginalOrderTotal - (OriginalOrderTotal * coupon.Discount / 100), 2);
+                    }
+                }
+            }
+            return OriginalOrderTotal;
+        }
     }
 }

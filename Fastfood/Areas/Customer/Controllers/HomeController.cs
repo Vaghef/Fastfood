@@ -71,7 +71,7 @@ namespace Fastfood.Areas.Customer.Controllers
                 ShoppingCart cartDb = await _context.shoppingCarts.Where(c => c.ApplicationUserId == cartObj.ApplicationUserId && c.MenuItemId == cartObj.MenuItemId).FirstOrDefaultAsync();
 
                 if (cartDb == null)
-                    await _context.shoppingCarts.AddAsync(cartDb);
+                    await _context.shoppingCarts.AddAsync(cartObj);
                 else
                     cartDb.Count = cartDb.Count + cartObj.Count;
 
