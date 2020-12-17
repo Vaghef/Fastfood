@@ -1,5 +1,7 @@
 ﻿using Fastfood.Data;
 using Fastfood.Models;
+using Fastfood.Utilities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -9,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace Fastfood.Areas.Admin.Controllers
 {
+    [Authorize(Roles = SD.ManagerUser)]
     [Area("Admin")]
     public class CategoryController : Controller
     {

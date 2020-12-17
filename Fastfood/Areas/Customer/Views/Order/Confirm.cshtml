@@ -1,0 +1,29 @@
+﻿@model OrderDetailsViewModel
+@{ ViewData["Title"] = "Confirm";
+    Layout = "~/Views/Shared/_Layout.cshtml"; 
+   }
+
+<br />
+<div class="backgroundWhite">
+    <div class="row px-3">
+        <div class="col-8">
+            <h2 class="text-info">تایید سفارش</h2>
+        </div>
+        <div class="col-4 text-right">
+            <a asp-action="Index" asp-controller="Home" class="btn btn-success form-control">سفارش جدید</a>
+        </div>
+    </div>
+
+    @if (Model.OrderHeader != null)
+    {
+<div style="color:maroon" class="p-3">
+    سفارش شما تایید شد
+    <br />
+    در صورت تمایل با ما تماس حاصل فرمایید
+</div>
+                <partial name="_IndividualOrderDetails" model="Model" /> }
+                            else
+                            {
+                <div class="text-danger">خطا .. بعد از دقایقی دوباره سعی کنید</div>}
+</div>
+

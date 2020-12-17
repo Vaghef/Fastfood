@@ -164,7 +164,7 @@ namespace Fastfood.Areas.Customer.Controllers
 
             await _db.SaveChangesAsync();
 
-            return View("Index", "Home");
+            return RedirectToAction("Index", "Home");
         }
 
         public IActionResult AddCoupon()
@@ -209,6 +209,19 @@ namespace Fastfood.Areas.Customer.Controllers
                 await _db.SaveChangesAsync();
             }
             return RedirectToAction("Index");
+        }
+        public async Task<IActionResult> Remove(int cartId)
+        {
+            var cart = await _db.shoppingCarts.FirstOrDefaultAsync(c => c.Id == cartId);
+
+            _db.shoppingCarts.Remove(cart);
+            await _db.SaveChangesAsync();
+
+            var cnt = _db.shoppingCarts.Where(u => u.ApplicationUserId == cart.ApplicationUserId).ToList().Count;
+            HttpContext.Session.SetInt32(SD.ssShopingCartCount, cnt);
+
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }

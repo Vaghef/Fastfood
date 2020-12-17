@@ -2,6 +2,7 @@
 using Fastfood.Models;
 using Fastfood.Models.ViewModels;
 using Fastfood.Utilities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +14,7 @@ using System.Threading.Tasks;
 
 namespace Fastfood.Areas.Admin.Controllers
 {
+    [Authorize(Roles = SD.ManagerUser)]
     [Area("Admin")]
     public class MenuItemController : Controller
     {
@@ -30,9 +32,6 @@ namespace Fastfood.Areas.Admin.Controllers
                 MenuItem = new MenuItem()
             };
         }
-
-
-
 
         public async Task<IActionResult> Index()
         {

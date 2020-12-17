@@ -40,6 +40,7 @@ namespace Fastfood.Models
         public string State { get; set; }
         [Display(Name = "وضعیت پرداخت")]
         public string PaymentStatus { get; set; }
+        [Display(Name = "نظرات")]
         public string Comments { get; set; }
         [Display(Name = "نام ارسال کننده")]
         public string PickupName { get; set; }
